@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* Start  Media queries */
+/* very small screen */
+@media(min-width:320px){
+  .bubble{
+    display: none;
+  }
+}
+@media (max-width: 640px){
+  .options{
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+  }
+}
+@media (min-width: 640px) and (max-width: 1024px){
+  .options{
+    display:grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: 1fr 1fr;
+    gap: 20px;
+  }
+}
+/* Small Screen */
+@media (min-width: 768px) {
+}
+
+/* medium Screen */
+@media (min-width: 1024px) {
+  .bubble{
+    display: block;
+  }
+}
+
+/* Large Screen */
+@media (min-width: 1200px) {
+  
+}
+
+/* End Media queries */
+.container {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* End of Global Rules */
