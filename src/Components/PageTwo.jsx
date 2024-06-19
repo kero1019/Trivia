@@ -1,7 +1,6 @@
 import React from 'react'
 import Category from './Category'
 import MainButton from './MainButton'
-import Data from '../myData.json'
 import {decode} from 'html-entities';
 
 export default function PageTwo() {
@@ -16,14 +15,22 @@ export default function PageTwo() {
 
     // Function to handle submit 
     function handleSubmit(){
-        let correctCounter = 0;
-        quizForm.map((item) => {
-            if (item.correctAnswer === item.userAnswer) {
-                correctCounter++
-            }
-        })
-        setCounter(correctCounter)
-        setCheckAnswer(true);
+        if(checkAnswer){
+            setCheckAnswer(false);
+            setCounter(0);
+            setQuizForm([])
+            getData();
+        }
+        else{
+            let correctCounter = 0;
+            quizForm.map((item) => {
+                if (item.correctAnswer === item.userAnswer) {
+                    correctCounter++
+                }
+            })
+            setCounter(correctCounter)
+            setCheckAnswer(true);
+        }
     }
 
     // Function to fetch data from API
@@ -70,7 +77,7 @@ export default function PageTwo() {
                 }
                 <div className="flex justify-center items-center gap-5 mt-8 mb-8">
                     {checkAnswer && <p className='text-[1.2rem] font-bold text-navy'>You scored {counter} / {quizForm.length} correct answers</p>}
-                <MainButton onClick={handleSubmit} >Check answers</MainButton>
+                <MainButton onClick={handleSubmit} >{checkAnswer ? "Play Again":"Check Answers"}</MainButton>
                 </div>
             </div>
             <div className="bubble w-[100px] h-[100px] bg-blue-color  absolute rounded-tr-full bottom-0  "></div>
