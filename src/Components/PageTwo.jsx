@@ -13,27 +13,7 @@ export default function PageTwo() {
     const [checkAnswer, setCheckAnswer] = React.useState(false);
     // state that save my data from fetch
     const [data,setData] = React.useState([]);
-    React.useEffect(()=>{
-        setQuizForm(
-            Data.results.map((data)=>{
-                const question = decode(data.question);
-                const correctAnswer = decode(data.correct_answer);
-                const allAnswers = data.incorrect_answers.map((answer)=>decode(answer)); 
-                allAnswers.splice(Math.floor(Math.random() * data.incorrect_answers.length),0,correctAnswer);
-                return {
-                    question:question,
-                    options:allAnswers,
-                    correctAnswer: correctAnswer,
-                    userAnswer: "",
-                    check:false
-                }
-            })
-        )
-        fetch("https://opentdb.com/api.php?amount=10&difficulty=easy")
-        .then(res => res.json())
-        .then(data => setData(data));
-        console.log(data);
-    },[])
+
     // Function to handle submit 
     function handleSubmit(){
         let correctCounter = 0;
@@ -45,6 +25,40 @@ export default function PageTwo() {
         setCounter(correctCounter)
         setCheckAnswer(true);
     }
+
+    // Function to fetch data from API
+    function getData(){
+        fetch("https://opentdb.com/api.php?amount=5&difficulty=easy")
+        .then(res=>res.json())
+        .then(data =>{
+            setData(data.results || [])
+        })
+    }
+
+    React.useEffect(()=>{
+        getData();
+    },[])
+
+    React.useEffect(()=>{
+        if(data.length > 0){
+            setQuizForm(
+                data.map((data)=>{
+                    const question = decode(data.question);
+                    const correctAnswer = decode(data.correct_answer);
+                    const allAnswers = data.incorrect_answers.map((answer)=>decode(answer)); 
+                    allAnswers.splice(Math.floor(Math.random() * data.incorrect_answers.length),0,correctAnswer);
+                    return {
+                        question:question,
+                        options:allAnswers,
+                        correctAnswer: correctAnswer,
+                        userAnswer: "",
+                        check:false
+                    }
+                })
+            )
+        }
+    },[data])
+
     return (
         <div className=' relative min-h-screen '>
             <div className="bubble w-[100px] h-[100px] bg-yellow-color rounded-bl-full absolute right-0 "></div>
@@ -55,7 +69,7 @@ export default function PageTwo() {
                     })
                 }
                 <div className="flex justify-center items-center gap-5 mt-8 mb-8">
-                    {counter === 0 ? <p></p> : <p className='text-[1.2rem] font-bold text-navy'>You scored {counter} / {quizForm.length} correct answers</p>}
+                    {checkAnswer && <p className='text-[1.2rem] font-bold text-navy'>You scored {counter} / {quizForm.length} correct answers</p>}
                 <MainButton onClick={handleSubmit} >Check answers</MainButton>
                 </div>
             </div>
