@@ -9,21 +9,21 @@
 
 /* Start  Media queries */
 /* very small screen */
-@media(min-width:320px){
-  .bubble{
+@media (min-width: 320px) {
+  .bubble {
     display: none;
   }
 }
-@media (max-width: 640px){
-  .options{
+@media (max-width: 640px) {
+  .options {
     display: flex;
     flex-direction: column;
-    gap:20px;
+    gap: 20px;
   }
 }
-@media (min-width: 640px) and (max-width: 1024px){
-  .options{
-    display:grid;
+@media (min-width: 640px) and (max-width: 1024px) {
+  .options {
+    display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-rows: 1fr 1fr;
     gap: 20px;
@@ -35,14 +35,13 @@
 
 /* medium Screen */
 @media (min-width: 1024px) {
-  .bubble{
+  .bubble {
     display: block;
   }
 }
 
 /* Large Screen */
 @media (min-width: 1200px) {
-  
 }
 
 /* End Media queries */
@@ -54,3 +53,22 @@
 }
 
 /* End of Global Rules */
+.loader {
+  width: 70px;
+  height: 70px;
+  border: 5px solid #fff;
+  border-bottom-color: #4D5B9E;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
